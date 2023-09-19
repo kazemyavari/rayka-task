@@ -1,5 +1,4 @@
-from aws.dynamodb.mixin import DynamoDBMixin
+from aws.dynamodb.db import DynamoDB
 
 
-class Devices(DynamoDBMixin):
-    pass
+devices = DynamoDB("devices")

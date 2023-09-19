@@ -1,6 +1,6 @@
 import boto3
 import logging
-from typing import Dict
+from typing import Dict, List
 from django.conf import settings
 from botocore.exceptions import ClientError
 
@@ -8,41 +8,22 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-class DynamoDBMixin:
-    def __init__(self):
-        self.table_name: str = self.__class__.__name__
-        self.table = None
-        self._meta_class()
-        self.create_table()
+class DynamoDB:
+    def __init__(self, table_name: str, schema: Dict = None):
+        self.__table = None
+        self.schema = self._set_default_schema() if schema is None else schema
+        self.schema["TableName"] = table_name
+        self.table_name = table_name
 
-    def _meta_class(self):
-        if not hasattr(self.__class__, "Meta"):
-
-            class Meta:
-                key_schema = [{"AttributeName": "id", "KeyType": "HASH"}]
-                attribute_definitions = [{"AttributeName": "id", "AttributeType": "S"}]
-                provisioned_throughput = {
-                    "ReadCapacityUnits": 10,
-                    "WriteCapacityUnits": 10,
-                }
-
-            self.__class__.Meta = Meta
-
-        self._meta = self.__class__.Meta
-
-        if not hasattr(self._meta, "key_schema"):
-            self._meta.key_schema = [{"AttributeName": "id", "KeyType": "HASH"}]
-
-        if not hasattr(self._meta, "attribute_definitions"):
-            self._meta.attribute_definitions = [
-                {"AttributeName": "id", "AttributeType": "S"}
-            ]
-
-        if not hasattr(self._meta, "provisioned_throughput"):
-            self._meta.provisioned_throughput = {
+    def _set_default_schema(self) -> dict:
+        return {
+            "KeySchema": [{"AttributeName": "id", "KeyType": "HASH"}],
+            "AttributeDefinitions": [{"AttributeName": "id", "AttributeType": "S"}],
+            "ProvisionedThroughput": {
                 "ReadCapacityUnits": 10,
                 "WriteCapacityUnits": 10,
-            }
+            },
+        }
 
     @property
     def dynamodb_config(self) -> Dict:
@@ -68,7 +49,7 @@ class DynamoDBMixin:
             table = self.dyn_resource.Table(self.table_name)
             table.load()
             exists = True
-            self.table = table
+            self.__table = table
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 exists = False
@@ -87,14 +68,9 @@ class DynamoDBMixin:
             return None
 
         try:
-            self.table = self.dyn_resource.create_table(
-                TableName=self.table_name,
-                KeySchema=self._meta.key_schema,
-                AttributeDefinitions=self._meta.attribute_definitions,
-                ProvisionedThroughput=self._meta.provisioned_throughput,
-            )
-            self.table.wait_until_exists()
-            return self.table
+            self.__table = self.dyn_resource.create_table(**self.schema)
+            self.__table.wait_until_exists()
+            return self.__table
         except ClientError as err:
             logger.error(
                 "Couldn't create table %s. Here's why: %s: %s",
@@ -103,3 +79,10 @@ class DynamoDBMixin:
                 err.response["Error"]["Message"],
             )
             raise
+
+    @property
+    def table(self):
+        if self.__table is None:
+            self.create_table()
+
+        return self.__table
