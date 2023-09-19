@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,3 +137,11 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
+
+
+# AWS Config
+AWS_DYNAMODB_REGION_NAME = os.environ.get("AWS_DYNAMODB_REGION_NAME", "local")
+AWS_LOCAL_DYNAMODB_HOST = "localhost"
+AWS_LOCAL_DYNAMODB_PORT = 3000
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "dev")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "dev")
