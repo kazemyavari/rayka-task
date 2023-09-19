@@ -1,0 +1,15 @@
+services:
+  api:
+    container_name: rayka_api_dev
+    build: .
+    restart: always
+    command: python manage.py runserver 
+    ports:
+      - "8000:8000"
+
+  dynamodb:
+    container_name: rayka_dynamodb
+    image: amazon/dynamodb-local
+    restart: always
+    ports:
+      - "3000:8000"

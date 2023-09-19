@@ -1,0 +1,11 @@
+services:
+  api:
+    container_name: rayka_api
+    build: .
+    restart: always
+    command: python manage.py runserver 
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
