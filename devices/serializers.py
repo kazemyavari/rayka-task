@@ -14,7 +14,7 @@ class DeviceSerializer(Serializer):
 
         if not device_model.isdigit():
             raise serializers.ValidationError(
-                "deviceModel field must be in this format /devicemodels/id1"
+                "deviceModel field must be in this format /devicemodels/id<int>"
             )
 
         return value

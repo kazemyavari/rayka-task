@@ -3,5 +3,5 @@ from .views import DeviceCreateView
 
 
 urlpatterns = [
-    re_path(r"^devices/?$", DeviceCreateView.as_view(), name="create_device"),
+    path("", DeviceCreateView.as_view(), name="create_device"),
 ]
