@@ -128,6 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "devices.views.custom_exception_handler",
 }
 
 
@@ -142,7 +143,7 @@ SPECTACULAR_SETTINGS = {
 
 # AWS Config
 AWS_DYNAMODB_REGION_NAME = os.environ.get("AWS_DYNAMODB_REGION_NAME", "local")
-AWS_LOCAL_DYNAMODB_HOST = "localhost"
-AWS_LOCAL_DYNAMODB_PORT = 3000
+AWS_LOCAL_DYNAMODB_HOST = os.environ.get("AWS_LOCAL_DYNAMODB_HOST", "localhost")
+AWS_LOCAL_DYNAMODB_PORT = os.environ.get("AWS_LOCAL_DYNAMODB_PORT", 3000)
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "dev")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "dev")

@@ -18,7 +18,7 @@ class DynamoDB:
             table_name (str): The name of the DynamoDB table.
             schema (Dict, optional): The schema definition for the table. Defaults to None.
         """
-        self.__table = None
+        self._table = None
         self.schema = self._set_default_schema() if schema is None else schema
         self.schema["TableName"] = table_name
         self.table_name = table_name
