@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
 from .serializers import DeviceSerializer
-from .models import devices
+from .models import Devices
 
 
 class DeviceCreateView(APIView):
@@ -49,7 +49,7 @@ class DeviceRetrieveView(APIView):
     serializer_class = DeviceSerializer
 
     def get(self, request, id):
-        device = devices.table.get_item(Key={"id": f"/devices/id{id}"})
+        device = Devices().table.get_item(Key={"id": f"/devices/id{id}"})
 
         if not "Item" in device:
             return Response(

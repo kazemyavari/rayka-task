@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import Serializer
-from .models import devices
+from .models import Devices
 
 
 class DeviceSerializer(Serializer):
@@ -27,7 +27,7 @@ class DeviceSerializer(Serializer):
             raise serializers.ValidationError(
                 "id field must be in this format: /devices/id<pk>"
             )
-        device = devices.table.get_item(Key={"id": value})
+        device = Devices().table.get_item(Key={"id": value})
         if "Item" in device:
             raise serializers.ValidationError(
                 f"Item already exists with this id: {value}."
@@ -36,4 +36,4 @@ class DeviceSerializer(Serializer):
         return value
 
     def save(self, **kwself):
-        devices.table.put_item(Item=self.validated_data)
+        Devices().table.put_item(Item=self.validated_data)

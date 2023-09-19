@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,14 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "DJ_SECRET_KEY",
-    "django-insecure-z_r6b@23*g!=gu%op=*t2nxeb3@83^oys(_0vptsifpq!y&))o",
-)
+SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJ_DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = os.environ.get("DJ_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -142,8 +142,7 @@ SPECTACULAR_SETTINGS = {
 
 
 # AWS Config
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "dev")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "dev")
-AWS_DYNAMODB_REGION_NAME = os.environ.get("AWS_DYNAMODB_REGION_NAME", "local")
-AWS_LOCAL_DYNAMODB_HOST = os.environ.get("AWS_LOCAL_DYNAMODB_HOST", "localhost")
-AWS_LOCAL_DYNAMODB_PORT = os.environ.get("AWS_LOCAL_DYNAMODB_PORT", 3000)
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID") 
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_DYNAMODB_REGION_NAME = os.getenv("AWS_DYNAMODB_REGION_NAME")
+AWS_ENDPOINT_LOCAL_URL = os.getenv("AWS_ENDPOINT_LOCAL_URL")
