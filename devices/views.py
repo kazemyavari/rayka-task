@@ -48,8 +48,8 @@ class DeviceRetrieveView(APIView):
 
     serializer_class = DeviceSerializer
 
-    def get(self, request, pk):
-        device = devices.table.get_item(Key={"id": f"/devices/id{pk}"})
+    def get(self, request, id):
+        device = devices.table.get_item(Key={"id": f"/devices/id{id}"})
 
         if not "Item" in device:
             return Response(

@@ -1,0 +1,5 @@
+services:
+  dynamodb_test:
+    image: amazon/dynamodb-local
+    ports:
+      - "4000:8000"

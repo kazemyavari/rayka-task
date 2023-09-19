@@ -142,8 +142,8 @@ SPECTACULAR_SETTINGS = {
 
 
 # AWS Config
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "dev")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "dev")
 AWS_DYNAMODB_REGION_NAME = os.environ.get("AWS_DYNAMODB_REGION_NAME", "local")
 AWS_LOCAL_DYNAMODB_HOST = os.environ.get("AWS_LOCAL_DYNAMODB_HOST", "localhost")
 AWS_LOCAL_DYNAMODB_PORT = os.environ.get("AWS_LOCAL_DYNAMODB_PORT", 3000)
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "dev")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "dev")
