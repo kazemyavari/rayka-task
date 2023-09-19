@@ -11,19 +11,38 @@ logger = logging.getLogger(__name__)
 class DynamoDBMixin:
     def __init__(self):
         self.table_name: str = self.__class__.__name__
-        self._meta = self.__class__.Meta
         self.table = None
+        self._meta_class()
+        self.create_table()
 
-        self._meta_class_exists()
-
-    def _meta_class_exists():
+    def _meta_class(self):
         if not hasattr(self.__class__, "Meta"):
-            raise Exception(f"{self.table_name} Class must have Attribute Meta Class.")
 
-        must_attrs = ["key_schema", "attribute_definitions", "provisioned_throughput"]
-        for attr in must_attrs:
-            if not hasattr(self.__class__._meta, attr):
-                raise Exception(f"Meta Class must have Attribute {attr}.")
+            class Meta:
+                key_schema = [{"AttributeName": "id", "KeyType": "HASH"}]
+                attribute_definitions = [{"AttributeName": "id", "AttributeType": "S"}]
+                provisioned_throughput = {
+                    "ReadCapacityUnits": 10,
+                    "WriteCapacityUnits": 10,
+                }
+
+            self.__class__.Meta = Meta
+
+        self._meta = self.__class__.Meta
+
+        if not hasattr(self._meta, "key_schema"):
+            self._meta.key_schema = [{"AttributeName": "id", "KeyType": "HASH"}]
+
+        if not hasattr(self._meta, "attribute_definitions"):
+            self._meta.attribute_definitions = [
+                {"AttributeName": "id", "AttributeType": "S"}
+            ]
+
+        if not hasattr(self._meta, "provisioned_throughput"):
+            self._meta.provisioned_throughput = {
+                "ReadCapacityUnits": 10,
+                "WriteCapacityUnits": 10,
+            }
 
     @property
     def dynamodb_config(self) -> Dict:

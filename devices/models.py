@@ -1,3 +1,5 @@
-from django.db import models
+from aws.dynamodb.mixin import DynamoDBMixin
 
-# Create your models here.
+
+class Devices(DynamoDBMixin):
+    pass
