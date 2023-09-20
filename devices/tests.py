@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.test import APIClient, APISimpleTestCase
 from parameterized import parameterized
 from django.test import override_settings
-
+from django.conf import settings
 
 class DeviceCreateRetrieveTest(APISimpleTestCase):
     def setUp(self):
@@ -67,7 +67,7 @@ class DeviceCreateRetrieveTest(APISimpleTestCase):
             ),
         ]
     )
-    @override_settings(AWS_LOCAL_DYNAMODB_PORT=4000)
+    @override_settings(AWS_ENDPOINT_LOCAL_URL="http://localhost:4000")
     def test_create_device(self, name, device_data, expected_status):
         response = self.client.post("/api/devices/", device_data, format="json")
         self.assertEqual(response.status_code, expected_status)
@@ -78,7 +78,7 @@ class DeviceCreateRetrieveTest(APISimpleTestCase):
             ("nonexistent_device", 1000, status.HTTP_404_NOT_FOUND),
         ]
     )
-    @override_settings(AWS_LOCAL_DYNAMODB_PORT=4000)
+    @override_settings(AWS_ENDPOINT_LOCAL_URL="http://localhost:4000")
     def test_retrieve_device(self, name, device_id, expected_status):
         response = self.client.get(f"/api/devices/{device_id}/")
         self.assertEqual(response.status_code, expected_status)
