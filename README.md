@@ -33,8 +33,14 @@ Before you begin, make sure you have the following installed:
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
 
+>>> If you want to switch back to using DynamoDB Local for local development,
+you can comment out the AWS credentials and uncomment the AWS_ENDPOINT_LOCAL_URL line in the .env file 
+and restart the project as needed.
 # Uncomment the following line if running locally with DynamoDB Local
 # AWS_ENDPOINT_LOCAL_URL=http://localhost:8000
+
+>>> Of course, it is better not to use Docker and run the project as follows:
+>>> python manage.py runserver
 ```
 
 ### 3. Start the Docker containers:
@@ -88,4 +94,6 @@ class YourModel(DynamoModel):
             "WriteCapacityUnits": 10,
         },
     }
+
+devices = Devices()
 ```

@@ -76,7 +76,7 @@ def custom_exception_handler(exc, context):
     - Response: An HTTP response indicating the error with status 500.
     """
     response = exception_handler(exc, context)
-    if response is None:
+    if not response:
         response = Response(
             {"message": str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

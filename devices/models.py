@@ -2,6 +2,7 @@ from aws.dynamodb.model import DynamoModel
 
 
 class Devices(DynamoModel):
+
     schema = {
         "KeySchema": [
             {"AttributeName": "id", "KeyType": "HASH"},
