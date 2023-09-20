@@ -40,6 +40,14 @@ AWS_SECRET_ACCESS_KEY=your-secret-access-key
 ```bash
 >>> docker compose up -d
 ```
+## Usage
+
+### API Documentation
+Swagger/OpenAPI documentation is available for your APIs. You can access it at:
+
+http://localhost:8000/api/docs/
+
+Use the API documentation to explore and test your APIs interactively.
 
 ## Test
 
