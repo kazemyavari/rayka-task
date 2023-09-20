@@ -80,5 +80,5 @@ class DeviceCreateRetrieveTest(APISimpleTestCase):
     )
     @override_settings(AWS_ENDPOINT_LOCAL_URL="http://localhost:4000")
     def test_retrieve_device(self, name, device_id, expected_status):
-        response = self.client.get(f"/api/devices/{device_id}/")
+        response = self.client.get(f"/api/devices/id{device_id}/")
         self.assertEqual(response.status_code, expected_status)
