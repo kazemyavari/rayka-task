@@ -7,6 +7,7 @@ Implement a simple Restful API on Django using the following tech stack: Python,
 - [Installation](#installation)
 - [Usage](#usage)
 - [Test](#test)
+- [DynamoDB](#dynamodb)
  
 ## Prerequisites
 
@@ -61,4 +62,30 @@ Use the API documentation to explore and test your APIs interactively.
 ### Linux & Mac:
 ```bash
 >>> ./run_test.sh
+```
+
+## DynamoDB
+
+### DynamoDB Tables
+
+In this project, DynamoDB tables are automatically created based on the schema definition you provide. You don't need to create the tables manually; the necessary tables are provisioned when you run the project.
+
+### Creating a DynamoDB Model
+
+To define a DynamoDB model for your data, you can use the `DynamoModel` class provided in the `aws.dynamodb.model` module. Here's an example of how to create a model for the `YourModel` table:
+
+```python
+from aws.dynamodb.model import DynamoModel
+
+class YourModel(DynamoModel):
+    schema = {
+        "KeySchema": [
+            {"AttributeName": "id", "KeyType": "HASH"},
+        ],
+        "AttributeDefinitions": [{"AttributeName": "id", "AttributeType": "S"}],
+        "ProvisionedThroughput": {
+            "ReadCapacityUnits": 10,
+            "WriteCapacityUnits": 10,
+        },
+    }
 ```
