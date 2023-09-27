@@ -12,7 +12,7 @@ class DynamoModel:
     """A class for interacting with DynamoDB tables."""
 
     def __init__(self):
-        self._schema_defined()  
+        self._schema_defined()
         self.table_name = self.schema["TableName"]
         self.table = self.get_table()
 
@@ -22,7 +22,7 @@ class DynamoModel:
             raise AttributeError(
                 f"The 'schema' attribute must be defined in the {str(self.table_name).capitalize()} class."
             )
-        
+
         if "TableName" not in self.schema:
             self.schema["TableName"] = self.__class__.__name__
 
@@ -32,16 +32,12 @@ class DynamoModel:
         Returns:
             Dict: The DynamoDB configuration.
         """
-        dynamodb_config = {
+        return {
             "region_name": settings.AWS_DYNAMODB_REGION_NAME,
             "aws_access_key_id": settings.AWS_ACCESS_KEY_ID,
             "aws_secret_access_key": settings.AWS_SECRET_ACCESS_KEY,
+            "endpoint_url": settings.AWS_ENDPOINT_LOCAL_URL,
         }
-
-        if settings.AWS_ENDPOINT_LOCAL_URL:
-            dynamodb_config["endpoint_url"] = settings.AWS_ENDPOINT_LOCAL_URL
-
-        return dynamodb_config
 
     def get_resource(self) -> ServiceResource:
         """Get the DynamoDB resource.

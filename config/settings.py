@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 import os
 
 load_dotenv()
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "drf_spectacular",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -138,11 +139,12 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "A Simple restful API on Django & AWS DynamoDB",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    'SERVERS': [{'url': 'https://8n9oqj0kbj.execute-api.us-east-1.amazonaws.com/dev/'}],
 }
 
 
 # AWS Config
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS")
 AWS_DYNAMODB_REGION_NAME = os.getenv("AWS_DYNAMODB_REGION_NAME")
 AWS_ENDPOINT_LOCAL_URL = os.getenv("AWS_ENDPOINT_LOCAL_URL")
