@@ -95,5 +95,4 @@ class YourModel(DynamoModel):
         },
     }
 
-devices = Devices()
 ```
