@@ -139,8 +139,10 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "A Simple restful API on Django & AWS DynamoDB",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
-    'SERVERS': [{'url': 'https://8n9oqj0kbj.execute-api.us-east-1.amazonaws.com/dev/'}],
 }
+AWS_SWAGGER_URL = os.getenv("AWS_SWAGGER_URL", None)
+if AWS_SWAGGER_URL:
+    SPECTACULAR_SETTINGS["SERVERS"] = [{"url": AWS_SWAGGER_URL}]
 
 
 # AWS Config
