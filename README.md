@@ -7,7 +7,6 @@ Implement a simple Restful API on Django using the following tech stack: Python,
 -   [Usage](#usage)
 -   [Test](#test)
 -   [Deploy on AWS](#deploy-on-aws-lambda)
--   [Code and structure](#code-and-structure)
 
 ## Installation
 1. Clone repository:
@@ -40,6 +39,8 @@ Implement a simple Restful API on Django using the following tech stack: Python,
 > Remember to keep your `.env` file secure and never commit it to
 > version control. You should include it in your project's `.gitignore`
 > file to prevent accidental exposure of sensitive information.
+
+
 
 ## Usage
 **Method 1: Running the Project with Docker** (Recommended)
