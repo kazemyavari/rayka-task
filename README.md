@@ -19,6 +19,11 @@ Implement a simple Restful API on Django using the following tech stack: Python,
 	cp env.example .env
 	```
 	
+	> Remember to keep your `.env` file secure and never commit it to
+	> version control. You should include it in your project's `.gitignore`
+	> file to prevent accidental exposure of sensitive information`enter
+	> code here`.
+
 	##### Environment Variables
 
 	Here is a list of environment variables that you need to configure in your `.env` file:
@@ -35,12 +40,12 @@ Implement a simple Restful API on Django using the following tech stack: Python,
     
 	-   `AWS_DYNAMODB_REGION_NAME`: The AWS region name where your DynamoDB resources are located.
 	-   `AWS_ENDPOINT_LOCAL_URL`: (Optional) If you're using a local version of AWS services (e.g., local DynamoDB), set the endpoint URL here.
+	 - `AWS_SWAGGER_URL`:(Optional) Used to specify the SERVER URL of the Swagger API.
+ 
+ 
+### Additional Note
 
-> Remember to keep your `.env` file secure and never commit it to
-> version control. You should include it in your project's `.gitignore`
-> file to prevent accidental exposure of sensitive information.
-
-
+*Also, in the next developments, we can to enhance security for managing environmental variables by utilizing **AWS Secret Manager**. This will provide a more robust and secure approach to handling sensitive data.*
 
 ## Usage
 **Method 1: Running the Project with Docker** (Recommended)
@@ -117,3 +122,9 @@ We can deploy our python project on lambda and S3 buckets using zappa in the fol
     pip install zappa
     zappa init
     zappa deploy
+    
+### Additional Note
+
+*It is also possible to use **Amazon Elastic Container Registry (ECR)** to publish your Docker image on Amazon and perform the deployment. This method is particularly useful for containerized applications.
+
+With ECR, you can build and push Docker images to a private container registry, making it easy to manage and deploy containerized applications on AWS services like ECS (Elastic Container Service) or EKS (Elastic Kubernetes Service).*
