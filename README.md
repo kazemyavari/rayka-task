@@ -1,6 +1,6 @@
 # Django Restful API Challenge
 
-Implement a simple Restful API on Django using the following tech stack: Python, Django Rest Framework, AWS DynamoDB For Rayka company.
+Implement a simple Restful API on Django using the following tech stack: Python, Django Rest Framework, AWS DynamoDB.
 
 # Getting Started
 -   [Installation](#installation)
@@ -11,8 +11,8 @@ Implement a simple Restful API on Django using the following tech stack: Python,
 ## Installation
 1. Clone repository:
 	```bash
-	git clone git@github.com:kazemyavari/rayka-task.git
-	cd rayka-task
+	git clone git@github.com:kazemyavari/task1.git
+	cd task1
 	```
 2. Create a copy of this `env.example` file and name it `.env`. This file will store your actual environment variables. Open the `.env` file in a text editor of your choice and set the values for each variable as required by the project.
 	```bash
